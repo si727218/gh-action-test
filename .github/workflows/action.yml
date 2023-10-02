@@ -1,0 +1,27 @@
+name: Hello World Action
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  hello_world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  
+
+      - name: Print Hello World and PR Details
+        run: |
+          echo "Hello World"
+          echo "Author: ${{ github.actor }}"
+          echo "Last commit:"
+          git log -1 --pretty=format:"%h - %s (%an, %ar)"
+          echo ""
+          echo "Changes between last commit and default branch:"
+          git diff ${{ github.base_ref }} HEAD
+
