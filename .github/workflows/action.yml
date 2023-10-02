@@ -23,5 +23,4 @@ jobs:
           git log -1 --pretty=format:"%h - %s (%an, %ar)"
           echo ""
           echo "Changes between last commit and default branch:"
-          git diff ${{ github.base_ref }} HEAD
-
+          git diff --name-only --diff-filter=AM ${{ github.event.before }} ${{ github.sha }}
